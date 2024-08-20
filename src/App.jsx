@@ -5,7 +5,7 @@ function App() {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container px-5">
           <a className="navbar-brand" href="#!">
-            PrevLar - Administradora
+            Ouro Preto - Construção
           </a>
           <button
             className="navbar-toggler"
@@ -54,15 +54,18 @@ function App() {
             />
           </div>
           <div className="col-lg-5">
-            <h1 className="font-weight-light">PrevLar - Administradora</h1>
+            <h1 className="font-weight-light">Ouro Preto - Construção</h1>
             <p>
-              A PrevLar é uma empresa dedicada à administração de condomínios em
-              Maceió, Alagoas, com o compromisso de proporcionar soluções
-              eficientes e transparentes para a gestão condominial. Nosso
-              objetivo é simplificar a vida dos síndicos e moradores, oferecendo
-              serviços personalizados e inovadores que visam aprimorar a
-              convivência e valorizar o patrimônio dos condomínios que
-              administramos.
+              A Ouro Preto Construção é uma empresa especializada em serviços de
+              construção civil, reconhecida por sua excelência em projetos
+              residenciais, comerciais e industriais. Com uma equipe altamente
+              qualificada e comprometida com a qualidade, a empresa se destaca
+              pela inovação, responsabilidade e pelo rigoroso cumprimento de
+              prazos. Atuando desde a concepção até a entrega final das obras, a
+              Ouro Preto Construção oferece soluções completas, garantindo
+              eficiência e segurança em cada etapa do processo. Nossa missão é
+              transformar projetos em realidade, sempre com o foco em satisfazer
+              as necessidades e expectativas de nossos clientes.
             </p>
             <a className="btn btn-primary" href="#!">
               Ler Mais
@@ -72,8 +75,7 @@ function App() {
         <div className="card text-white bg-secondary my-5 py-4 text-center">
           <div className="card-body">
             <p className="text-white m-0">
-              PrevLar: Transformando Condomínios em Comunidades, Cuidando do Seu
-              Lar com Compromisso e Inovação.
+              Ouro Presto - Construção: Seja bem vindo!
             </p>
           </div>
         </div>
@@ -104,11 +106,11 @@ function App() {
               <div className="card-body">
                 <h2 className="card-title">Visão</h2>
                 <p className="card-text">
-                  Ser reconhecida como a principal referência em administração
-                  de condomínios em Maceió, Alagoas, destacando-nos pela
-                  qualidade dos serviços oferecidos, pela integridade nas
-                  relações com clientes e colaboradores, e pela implementação de
-                  soluções inovadoras. Buscamos expandir nossa presença de forma
+                  Ser reconhecida como a principal referência em materiais de
+                  construção s em Maceió, Alagoas, destacando-nos pela qualidade
+                  dos serviços oferecidos, pela integridade nas relações com
+                  clientes e colaboradores, e pela implementação de soluções
+                  inovadoras. Buscamos expandir nossa presença de forma
                   sustentável, mantendo o compromisso com a ética, a
                   transparência e a excelência em todos os aspectos da nossa
                   atuação.
@@ -148,7 +150,8 @@ function App() {
       <footer className="py-5 bg-dark">
         <div className="container px-4 px-lg-5">
           <p className="m-0 text-center text-white">
-            Copyright &copy; PrevLar. Todos os direitos reservados. 2023.
+            Copyright &copy; Ouro Preto Construção. Todos os direitos
+            reservados. 2024.
           </p>
         </div>
       </footer>
