@@ -1,0 +1,74 @@
+/* Estilos gerais */
+.header {
+  display: flex;
+  align-items: center;
+  color: antiquewhite;
+}
+
+.title {
+  width: 100%;
+  text-align: center;
+}
+
+.container {
+  background-color: #000f6a;
+  border-radius: 50px 0px 50px 0px;
+  margin: 2rem;
+  padding: 2rem;
+}
+
+.container img {
+  border-radius: 50px 0px 50px 0px;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Media Query para telas pequenas */
+@media (max-width: 600px) {
+  .container img {
+    max-width: 100px;
+  }
+  .header {
+    flex-direction: column; /* Empilha itens verticalmente em telas pequenas */
+    text-align: center;
+  }
+
+  .container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem; /* Ajusta o tamanho da fonte para telas pequenas */
+  }
+
+  .menu {
+    flex-direction: column; /* Empilha itens verticalmente em telas pequenas */
+  }
+
+  .container img {
+    width: 100%; /* Faz com que a imagem se ajuste à largura do container */
+    border-radius: 0; /* Remove o arredondamento das bordas em telas pequenas */
+  }
+}
+
+/* Media Query para telas médias */
+@media (max-width: 1024px) and (min-width: 601px) {
+  .header {
+    flex-direction: row; /* Mantém os itens em linha em telas médias */
+    justify-content: space-between; /* Adiciona espaço entre os itens */
+  }
+
+  .container {
+    margin: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 2rem; /* Ajusta o tamanho da fonte para telas médias */
+  }
+}
