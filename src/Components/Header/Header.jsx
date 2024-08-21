@@ -9,11 +9,6 @@ function Header() {
           <img src="/logo.jpg" alt="" />
           <div className={styles.title}>
             <h3>Ouro Preto - Construção </h3>
-            <div className={styles.menu}>
-              <Link to={'/'}>Home</Link>
-              <Link to={'/produtos'}>Produtos</Link>
-              <Link to={'/contato'}> Contato</Link>
-            </div>
           </div>
         </div>
       </Container>

@@ -24,7 +24,7 @@ const Cards = ({ cardsData }) => {
       {cardsData.map((card, index) => {
         const { ref, inView } = useInView({
           triggerOnce: true,
-          threshold: 0.1,
+          threshold: 0.7,
         });
 
         return (
@@ -36,10 +36,11 @@ const Cards = ({ cardsData }) => {
               opacity: inView ? 1 : 0,
               transform: inView ? 'translateY(0)' : 'translateY(20px)',
               marginBottom: 2,
+              boxShadow: 'none',
             }}
           >
             <CardMedia
-              sx={{ height: 140 }}
+              sx={{ height: 140, border: ' none' }}
               image={card.image}
               title={card.title}
             />
