@@ -33,26 +33,30 @@
     max-width: 100px;
   }
   .header {
-    flex-direction: column; /* Empilha itens verticalmente em telas pequenas */
     text-align: center;
   }
-
+  .menu {
+    font-size: 13px;
+  }
   .container {
     margin: 1rem;
     padding: 1rem;
   }
 
+  .title h3 {
+    font-size: 1rem;
+  }
   .title {
-    font-size: 1.5rem; /* Ajusta o tamanho da fonte para telas pequenas */
+    border-radius: 10px;
+    width: 200px;
+    font-weight: 600;
+    text-align: center;
   }
-
-  .menu {
-    flex-direction: column; /* Empilha itens verticalmente em telas pequenas */
-  }
-
   .container img {
-    width: 100%; /* Faz com que a imagem se ajuste à largura do container */
-    border-radius: 0; /* Remove o arredondamento das bordas em telas pequenas */
+    border-radius: 10px;
+  }
+  .menu a {
+    padding: 10px;
   }
 }
 
