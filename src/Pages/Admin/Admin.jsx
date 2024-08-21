@@ -1,11 +1,17 @@
 import { Route, Routes } from 'react-router-dom';
-import AdminLogin from './AdminLogin';
 import AdminDash from './AdminDash';
+import ProtectedRoute from '../../Helper/ProtectedRoute';
 function Admin() {
   return (
     <Routes>
-      <Route element={<AdminLogin />} path="login"></Route>
-      <Route element={<AdminDash />} path="/"></Route>
+      <Route
+        element={
+          <ProtectedRoute>
+            <AdminDash />
+          </ProtectedRoute>
+        }
+        path="/"
+      ></Route>
     </Routes>
   );
 }
