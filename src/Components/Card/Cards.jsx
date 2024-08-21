@@ -18,13 +18,14 @@ const FadeInCard = styled(Card)(({ theme }) => ({
 
 const Cards = ({ cardsData }) => {
   if (!cardsData) return null;
+  console.log(cardsData);
 
   return (
     <>
       {cardsData.map((card, index) => {
         const { ref, inView } = useInView({
           triggerOnce: true,
-          threshold: 0.7,
+          threshold: 0.4,
         });
 
         return (
@@ -40,16 +41,16 @@ const Cards = ({ cardsData }) => {
             }}
           >
             <CardMedia
-              sx={{ height: 140, border: ' none' }}
-              image={card.image}
-              title={card.title}
+              sx={{ height: 140, border: ' none', backgroundSize: 'contain ' }}
+              image={card.imagem_url}
+              title={card.nome}
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                {card.title}
+                {card.nome}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {card.description}
+                {card.descricao}
               </Typography>
               <Typography
                 gutterBottom
@@ -57,13 +58,13 @@ const Cards = ({ cardsData }) => {
                 variant="h5"
                 component="div"
               >
-                R$: 20,00
+                R$: {card.preco}
               </Typography>
             </CardContent>
-            <CardActions>
+            {/* <CardActions>
               <Button size="small">Comprar</Button>
               <Button size="small">Adicionar ao carrinho</Button>
-            </CardActions>
+            </CardActions> */}
           </FadeInCard>
         );
       })}
