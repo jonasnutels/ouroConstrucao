@@ -34,3 +34,6 @@
 .buttons h5:hover {
   color: #ccc;
 }
+.buttons a {
+  padding: 0px;
+}

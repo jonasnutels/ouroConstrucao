@@ -58,8 +58,6 @@
     padding: 10px;
   }
 }
-
-/* Media Query para telas médias */
 @media (max-width: 1024px) and (min-width: 601px) {
   .header {
     flex-direction: row; /* Mantém os itens em linha em telas médias */
