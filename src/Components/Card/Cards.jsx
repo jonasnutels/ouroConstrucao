@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import { useInView } from 'react-intersection-observer';
 import { styled } from '@mui/system';
+import { Link } from 'react-router-dom';
 
 const FadeInCard = styled(Card)(({ theme }) => ({
   opacity: 0,
@@ -19,7 +20,16 @@ const FadeInCard = styled(Card)(({ theme }) => ({
 const Cards = ({ cardsData }) => {
   if (!cardsData) return null;
   console.log(cardsData);
+  const handleFalarComVendedor = (produto) => {
+    const numero = '558230282936';
+    const mensagem = encodeURIComponent(
+      'Olá, vim pelo site e gostaria de comprar o seguinte item: ' + produto,
+    );
+    const url = `https://wa.me/${numero}?text=${mensagem}`;
 
+    // Abre a URL em uma nova janela
+    window.open(url, '_blank');
+  };
   return (
     <>
       {cardsData.map((card, index) => {
@@ -34,10 +44,15 @@ const Cards = ({ cardsData }) => {
             ref={ref}
             sx={{
               maxWidth: 345,
+              minHeight: 250,
+              width: '100%',
               opacity: inView ? 1 : 0,
               transform: inView ? 'translateY(0)' : 'translateY(20px)',
               marginBottom: 2,
               boxShadow: 'none',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
             }}
           >
             <CardMedia
@@ -61,8 +76,20 @@ const Cards = ({ cardsData }) => {
                 R$: {card.preco}
               </Typography>
             </CardContent>
+            <Button size="small" variant="contained">
+              <Link
+                style={{
+                  textDecoration: 'none',
+                  color: 'white',
+                  padding: '0px',
+                  margin: '0px',
+                }}
+                to={`https://wa.me/558230282936?text=Olá, vim pelo site e gostaria de comprar o seguinte item: ${card.nome}`}
+              >
+                Falar com Vendedor
+              </Link>
+            </Button>
             {/* <CardActions>
-              <Button size="small">Comprar</Button>
               <Button size="small">Adicionar ao carrinho</Button>
             </CardActions> */}
           </FadeInCard>
