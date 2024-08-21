@@ -49,9 +49,33 @@ export const UserStorage = ({ children }) => {
       console.error('Erro ao renovar sessão:', error.message);
     }
   }
+  async function handleLogout() {
+    try {
+      const { error } = await supabase.auth.signOut();
+
+      if (error) {
+        console.error('Erro ao fazer logout:', error.message);
+        toast.error('Erro ao fazer logout');
+      } else {
+        toast.success('Desconectado com sucesso');
+        setUsuario(null);
+        setAutenticado(false);
+        navigate('/'); // Redireciona para a página de login ou outra página pública
+      }
+    } catch (error) {
+      console.error('Erro ao fazer logout:', error.message);
+    }
+  }
+
   return (
     <UserContext.Provider
-      value={{ usuario, autenticado, handleLogin, handleAutoLogin }}
+      value={{
+        usuario,
+        autenticado,
+        handleLogin,
+        handleAutoLogin,
+        handleLogout,
+      }}
     >
       {children}
     </UserContext.Provider>

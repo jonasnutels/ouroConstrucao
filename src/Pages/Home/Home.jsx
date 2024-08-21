@@ -10,7 +10,11 @@ function Home() {
   const [products, setProducts] = useState();
   useEffect(() => {
     const fetchProducts = async () => {
-      const { data, error } = await supabase.from('produtos').select('*');
+      const { data, error } = await supabase
+        .from('produtos')
+        .select('*')
+        .eq('habilitado', true)
+        .order('ordem', { ascending: true });
 
       if (error) {
         console.error('Erro ao buscar produtos:', error);

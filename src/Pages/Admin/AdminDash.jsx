@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import {
   Container,
   TextField,
@@ -17,8 +17,10 @@ import {
 import styles from './Admin.module.css';
 import { supabase } from '../../Supabase/Auth';
 import { toast } from 'sonner';
+import { UserContext } from '../../userContext/userContext';
 
 function AdminDash() {
+  const { handleLogout } = useContext(UserContext);
   const [product, setProduct] = useState({
     name: '',
     description: '',
@@ -148,6 +150,9 @@ function AdminDash() {
         <Typography variant="h4" gutterBottom>
           Cadastro de Produtos
         </Typography>
+        <Button type="submit" onClick={handleLogout}>
+          Sair
+        </Button>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>

@@ -19,7 +19,8 @@ const ProtectedRoute = ({ children }) => {
   }, []);
 
   if (loading) return <>Loading...</>;
-  if (autenticado || !loading) return children;
+  if (!autenticado) return <Navigate to="/" />;
+  if (autenticado) return children;
 };
 
 export default ProtectedRoute;
