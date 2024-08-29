@@ -1,8 +1,6 @@
-import React from 'react';
 import {
   Button,
   Card,
-  CardActions,
   CardContent,
   CardMedia,
   Typography,
@@ -20,16 +18,7 @@ const FadeInCard = styled(Card)(({ theme }) => ({
 const Cards = ({ cardsData }) => {
   if (!cardsData) return null;
   console.log(cardsData);
-  const handleFalarComVendedor = (produto) => {
-    const numero = '558230282936';
-    const mensagem = encodeURIComponent(
-      'Olá, vim pelo site e gostaria de comprar o seguinte item: ' + produto,
-    );
-    const url = `https://wa.me/${numero}?text=${mensagem}`;
 
-    // Abre a URL em uma nova janela
-    window.open(url, '_blank');
-  };
   return (
     <>
       {cardsData.map((card, index) => {

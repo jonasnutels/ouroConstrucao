@@ -34,8 +34,8 @@ function Home() {
         <main className={styles.main}>
           <Cards cardsData={products} />
         </main>
-        <Footer />
       </Container>
+      <Footer />
     </>
   );
 }
