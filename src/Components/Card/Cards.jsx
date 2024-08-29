@@ -60,11 +60,15 @@ const Cards = ({ cardsData }) => {
               image={card.imagem_url}
               title={card.nome}
             />
-            <CardContent>
+            <CardContent style={{ minHeight: 200 }}>
               <Typography gutterBottom variant="h5" component="div">
                 {card.nome}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                style={{ minHeight: 100, maxHeight: 100 }}
+              >
                 {card.descricao}
               </Typography>
               <Typography
