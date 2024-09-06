@@ -13,14 +13,38 @@ import {
   TableRow,
   Paper,
   Switch,
+  Modal,
+  Box,
+  Tooltip,
+  IconButton,
 } from '@mui/material';
 import styles from './Admin.module.css';
 import { supabase } from '../../Supabase/Auth';
 import { toast } from 'sonner';
 import { UserContext } from '../../userContext/userContext';
+import { Delete, DeleteOutline, DeleteOutlineOutlined, EditNotifications } from '@mui/icons-material';
 
-function AdminDash() {
-  const { handleLogout } = useContext(UserContext);
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+function BasicModal({ onSuccess, productToEdit, setProductToEdit }) {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    setProductToEdit(null); // Limpar produto selecionado ao fechar o modal
+  };
+
   const [product, setProduct] = useState({
     name: '',
     description: '',
@@ -29,22 +53,19 @@ function AdminDash() {
     image: '',
   });
 
-  const [products, setProducts] = useState([]);
-
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === 'image') {
+  useEffect(() => {
+    if (productToEdit) {
       setProduct({
-        ...product,
-        image: files[0],
+        id: productToEdit.id,
+        name: productToEdit.nome,
+        description: productToEdit.descricao,
+        price: productToEdit.preco,
+        ordem: productToEdit.ordem,
+        image: '',
       });
-    } else {
-      setProduct({
-        ...product,
-        [name]: value,
-      });
+      handleOpen();
     }
-  };
+  }, [productToEdit]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,92 +89,82 @@ function AdminDash() {
 
       imageUrl = data2.publicUrl;
     }
-    console.log(imageUrl);
 
-    // Inserir o produto com a URL da imagem na tabela 'produtos'
-    const { data, error, status } = await supabase.from('produtos').insert([
-      {
-        nome: product.name,
-        descricao: product.description,
-        preco: product.price,
-        habilitado: true,
-        ordem: product.ordem,
-        imagem_url: imageUrl,
-      },
-    ]);
-
-    if (status === 201) {
-      toast.success('Produto adicionado com sucesso');
-      setProduct({
-        name: '',
-        description: '',
-        price: '',
-        ordem: '',
-        image: null,
-      });
-      setProducts([
-        ...products,
-        { ...product, id: data[0].id, imagem_url: imageUrl, enabled: true },
-      ]);
-    }
-
-    if (error) {
-      console.error('Erro ao adicionar produto:', error);
-    }
-  };
-
-  const handleToggle = async (index) => {
-    const updatedProduct = {
-      ...products[index],
-      habilitado: !products[index].habilitado,
-    };
-
-    setProducts((prevProducts) =>
-      prevProducts.map((prod, i) => (i === index ? updatedProduct : prod)),
-    );
-
-    const { error } = await supabase
-      .from('produtos')
-      .update({ habilitado: updatedProduct.habilitado })
-      .eq('id', updatedProduct.id);
-
-    if (error) {
-      console.error('Erro ao atualizar produto:', error);
-      setProducts((prevProducts) =>
-        prevProducts.map((prod, i) =>
-          i === index
-            ? { ...prod, habilitado: !updatedProduct.habilitado }
-            : prod,
-        ),
-      );
-    }
-  };
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const { data, error } = await supabase.from('produtos').select('*');
+    if (productToEdit) {
+      // Editar produto
+      const { error } = await supabase
+        .from('produtos')
+        .update({
+          nome: product.name,
+          descricao: product.description,
+          preco: product.price,
+          ordem: product.ordem,
+          imagem_url: imageUrl || productToEdit.imagem_url,
+        })
+        .eq('id', product.id);
 
       if (error) {
-        console.error('Erro ao buscar produtos:', error);
+        console.error('Erro ao editar produto:', error);
+        toast.error('Erro ao editar produto');
         return;
       }
+      toast.success('Produto editado com sucesso');
+    } else {
+      // Adicionar novo produto
+      const { data, error } = await supabase.from('produtos').insert([
+        {
+          nome: product.name,
+          descricao: product.description,
+          preco: product.price,
+          habilitado: true,
+          ordem: product.ordem,
+          imagem_url: imageUrl,
+        },
+      ]);
 
-      setProducts(data);
-    };
+      if (error) {
+        console.error('Erro ao adicionar produto:', error);
+        toast.error('Erro ao adicionar produto');
+        return;
+      }
+      toast.success('Produto adicionado com sucesso');
+    }
 
-    fetchProducts();
-  }, [product]);
+    handleClose();
+    onSuccess();
+
+    setProduct({
+      name: '',
+      description: '',
+      price: '',
+      ordem: '',
+      image: null,
+    });
+  };
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    if (name === 'image') {
+      setProduct({
+        ...product,
+        image: files[0],
+      });
+    } else {
+      setProduct({
+        ...product,
+        [name]: value,
+      });
+    }
+  };
 
   return (
-    <div className={styles.formContainer}>
-      <Container>
-        <Typography variant="h4" gutterBottom>
-          Cadastro de Produtos
-        </Typography>
-        <Button type="submit" onClick={handleLogout}>
-          Sair
-        </Button>
-        <form onSubmit={handleSubmit}>
+    <div>
+      <Button onClick={handleOpen} variant="contained">
+        {productToEdit ? 'Editar Produto' : 'Cadastrar Produto'}
+      </Button>
+      <Modal open={open} onClose={handleClose}>
+        <Box sx={style}>
+          <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -226,7 +237,98 @@ function AdminDash() {
             </Grid>
           </Grid>
         </form>
+        </Box>
+      </Modal>
+    </div>
+  );
+}
+function AdminDash() {
+  const { handleLogout } = useContext(UserContext);
+  const [products, setProducts] = useState([]);
+  const [productToEdit, setProductToEdit] = useState(null);
 
+  const handleToggle = async (index) => {
+    const updatedProduct = {
+      ...products[index],
+      habilitado: !products[index].habilitado,
+    };
+
+    setProducts((prevProducts) =>
+      prevProducts.map((prod, i) => (i === index ? updatedProduct : prod)),
+    );
+
+    const { error } = await supabase
+      .from('produtos')
+      .update({ habilitado: updatedProduct.habilitado })
+      .eq('id', updatedProduct.id);
+
+    if (error) {
+      console.error('Erro ao atualizar produto:', error);
+      setProducts((prevProducts) =>
+        prevProducts.map((prod, i) =>
+          i === index
+            ? { ...prod, habilitado: !updatedProduct.habilitado }
+            : prod,
+        ),
+      );
+    }
+  };
+  const fetchProducts = async () => {
+    const { data, error } = await supabase.from('produtos').select('*');
+
+    if (error) {
+      console.error('Erro ao buscar produtos:', error);
+      return;
+    }
+
+    setProducts(data);
+  };
+
+  useEffect(() => {
+    
+    fetchProducts();
+  }, []);
+  const handleProductAdded = () => {
+    fetchProducts(); 
+  };
+  const handleDelete = async (id) => {
+    try {
+     
+      const { error } = await supabase.from('produtos').delete().eq('id', id);
+
+      if (error) {
+        console.error('Erro ao excluir produto:', error.message);
+        toast.error('Erro ao excluir produto');
+        return;
+      }
+
+     
+      setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
+      toast.warning('Produto excluído com sucesso');
+    } catch (error) {
+      console.error('Erro ao excluir produto:', error.message);
+    }
+  };
+  const handleEdit = (product) => {
+    setProductToEdit(product);
+  };
+  return (
+    <div className={styles.formContainer}>
+      <Container>
+        <Typography variant="h4" gutterBottom>
+          Cadastro de Produtos
+        </Typography>
+        <Box sx={{display:'flex', gap:'1rem'}}>
+        <BasicModal
+            onSuccess={handleProductAdded}
+            productToEdit={productToEdit}
+            setProductToEdit={setProductToEdit}
+          />
+        <Button variant="contained" onClick={handleLogout}>
+          Sair
+        </Button>
+        </Box>
+      
         <Typography variant="h5" gutterBottom style={{ marginTop: '2rem' }}>
           Produtos Cadastrados
         </Typography>
@@ -239,7 +341,7 @@ function AdminDash() {
                 <TableCell>Descrição</TableCell>
                 <TableCell>Preço</TableCell>
                 <TableCell>Imagem</TableCell>
-                <TableCell>Habilitado</TableCell>
+                <TableCell style={{display:'flex', justifyContent: 'center'}}>Ação</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -260,12 +362,24 @@ function AdminDash() {
                         />
                       )}
                     </TableCell>
-                    <TableCell>
+                    <TableCell
+                      style={{ display: 'flex', alignItems: 'center', color: 'red' }}
+                    >
                       <Switch
                         checked={prod.habilitado}
                         onChange={() => handleToggle(index)}
                         color="primary"
                       />
+                      <Tooltip title="Editar">
+                        <IconButton onClick={() => handleEdit(prod)}>
+                          <EditNotifications />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Delete">
+                        <IconButton>
+                          <DeleteOutline onClick={() => handleDelete(prod.id)} />
+                        </IconButton>
+                      </Tooltip>
                     </TableCell>
                   </TableRow>
                 ))}

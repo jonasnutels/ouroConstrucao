@@ -1,20 +1,31 @@
 import { useContext, useState } from 'react';
 import { UserContext } from '../../userContext/userContext';
+import logo from '../../../public/logo.jpg'
 import styles from './Admin.module.css';
+import { Typography } from '@mui/material';
+
 
 function AdminDash() {
-  const { handleLogin } = useContext(UserContext);
+  const { handleLogin,loading } = useContext(UserContext);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleLogin(username, password);
+    try {
+            handleLogin(username, password);
+    } catch (error) {
+      console.error(error)
+    }
   };
 
   return (
     <div className={styles.formContainer}>
+      <img src={logo} alt=""/>
+      <Typography variant="h4" component="h2">
+  Acesso Restrito
+</Typography>
       <form className={styles.form} onSubmit={handleSubmit}>
         <input
           className={styles.input}
@@ -30,8 +41,8 @@ function AdminDash() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className={styles.button} type="submit">
-          Entrar
+        <button className={styles.button} type="submit" disabled={loading}>
+          {loading ? 'Entrando ...' : 'Entrar'}
         </button>
       </form>
     </div>

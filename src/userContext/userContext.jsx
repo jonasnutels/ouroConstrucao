@@ -10,18 +10,21 @@ export const UserStorage = ({ children }) => {
 
   const [usuario, setUsuario] = useState();
   const [autenticado, setAutenticado] = useState(false);
+  const [loading, setLoading] = useState(false);
   async function handleLogin(email, senha) {
+   setLoading(true)
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: email,
         password: senha,
       });
-      console.log(data);
 
       if (error) {
         toast.error('Usuário ou senha inválido :(');
+        setLoading(false)
       } else {
         toast.success('Logado com sucesso (:');
+        setLoading(false)
         setUsuario(data.user);
         setAutenticado(true);
         setTimeout(() => {
@@ -29,7 +32,10 @@ export const UserStorage = ({ children }) => {
         }, 1500);
       }
     } catch (error) {
+      setLoading(false)
       console.error('Erro ao fazer login:', error.message);
+    }finally{
+      setLoading(false)
     }
   }
   async function handleAutoLogin() {
@@ -67,11 +73,15 @@ export const UserStorage = ({ children }) => {
     }
   }
 
+  
+
+
   return (
     <UserContext.Provider
       value={{
         usuario,
         autenticado,
+        loading,
         handleLogin,
         handleAutoLogin,
         handleLogout,

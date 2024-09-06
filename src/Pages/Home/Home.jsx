@@ -26,7 +26,7 @@ function Home() {
 
     fetchProducts();
   }, []);
-  if (!products) return <>Loading ... </>;
+  if (!products) return null;
   return (
     <>
       <Header />
