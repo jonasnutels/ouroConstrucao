@@ -17,7 +17,6 @@ const FadeInCard = styled(Card)(({ theme }) => ({
 
 const Cards = ({ cardsData }) => {
   if (!cardsData) return null;
-  console.log(cardsData);
 
   return (
     <>

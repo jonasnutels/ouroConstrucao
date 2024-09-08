@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { UserContext } from '../../userContext/userContext';
+import { UserContext } from '../../Context/userContext';
 import logo from '../../../public/logo.jpg'
 import styles from './Admin.module.css';
 import { Typography } from '@mui/material';

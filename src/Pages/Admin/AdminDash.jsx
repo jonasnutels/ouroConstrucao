@@ -21,8 +21,10 @@ import {
 import styles from './Admin.module.css';
 import { supabase } from '../../Supabase/Auth';
 import { toast } from 'sonner';
-import { UserContext } from '../../userContext/userContext';
-import { Delete, DeleteOutline, DeleteOutlineOutlined, EditNotifications } from '@mui/icons-material';
+import { UserContext } from '../../Context/userContext';
+import {  DeleteOutline } from '@mui/icons-material';
+import EditIcon from '@mui/icons-material/Edit';
+import { ProductContext, ProductStorage } from '../../Context/productContext';
 
 
 const style = {
@@ -244,71 +246,20 @@ function BasicModal({ onSuccess, productToEdit, setProductToEdit }) {
 }
 function AdminDash() {
   const { handleLogout } = useContext(UserContext);
-  const [products, setProducts] = useState([]);
+  const {products, fetchProducts, handleDelete, handleToggle} = useContext(ProductContext)
   const [productToEdit, setProductToEdit] = useState(null);
 
-  const handleToggle = async (index) => {
-    const updatedProduct = {
-      ...products[index],
-      habilitado: !products[index].habilitado,
-    };
-
-    setProducts((prevProducts) =>
-      prevProducts.map((prod, i) => (i === index ? updatedProduct : prod)),
-    );
-
-    const { error } = await supabase
-      .from('produtos')
-      .update({ habilitado: updatedProduct.habilitado })
-      .eq('id', updatedProduct.id);
-
-    if (error) {
-      console.error('Erro ao atualizar produto:', error);
-      setProducts((prevProducts) =>
-        prevProducts.map((prod, i) =>
-          i === index
-            ? { ...prod, habilitado: !updatedProduct.habilitado }
-            : prod,
-        ),
-      );
-    }
-  };
-  const fetchProducts = async () => {
-    const { data, error } = await supabase.from('produtos').select('*');
-
-    if (error) {
-      console.error('Erro ao buscar produtos:', error);
-      return;
-    }
-
-    setProducts(data);
-  };
-
   useEffect(() => {
-    
-    fetchProducts();
+  fetchProducts();
   }, []);
+
+  
+  
+
   const handleProductAdded = () => {
     fetchProducts(); 
   };
-  const handleDelete = async (id) => {
-    try {
-     
-      const { error } = await supabase.from('produtos').delete().eq('id', id);
-
-      if (error) {
-        console.error('Erro ao excluir produto:', error.message);
-        toast.error('Erro ao excluir produto');
-        return;
-      }
-
-     
-      setProducts((prevProducts) => prevProducts.filter((product) => product.id !== id));
-      toast.warning('Produto excluído com sucesso');
-    } catch (error) {
-      console.error('Erro ao excluir produto:', error.message);
-    }
-  };
+  
   const handleEdit = (product) => {
     setProductToEdit(product);
   };
@@ -345,7 +296,7 @@ function AdminDash() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {products
+              {products && products
                 .sort((a, b) => a.ordem - b.ordem)
                 .map((prod, index) => (
                   <TableRow key={prod.id}>
@@ -353,33 +304,32 @@ function AdminDash() {
                     <TableCell>{prod.nome}</TableCell>
                     <TableCell>{prod.descricao}</TableCell>
                     <TableCell>{prod.preco}</TableCell>
-                    <TableCell>
+                    <TableCell >
                       {prod.imagem_url && (
                         <img
                           src={prod.imagem_url}
                           alt={prod.nome}
-                          style={{ width: '50px' }}
+                          style={{ maxWidth: '80px', maxHeight:'80px' }}
+                          
                         />
                       )}
                     </TableCell>
-                    <TableCell
-                      style={{ display: 'flex', alignItems: 'center', color: 'red' }}
-                    >
+                    <TableCell>
+                     <Box style={{ display: 'flex', alignItems: 'center', color: 'red' }}>
                       <Switch
                         checked={prod.habilitado}
                         onChange={() => handleToggle(index)}
                         color="primary"
-                      />
+                        />
                       <Tooltip title="Editar">
                         <IconButton onClick={() => handleEdit(prod)}>
-                          <EditNotifications />
+                          <EditIcon />
                         </IconButton>
                       </Tooltip>
                       <Tooltip title="Delete">
-                        <IconButton>
                           <DeleteOutline onClick={() => handleDelete(prod.id)} />
-                        </IconButton>
                       </Tooltip>
+                        </Box>
                     </TableCell>
                   </TableRow>
                 ))}

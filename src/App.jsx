@@ -2,9 +2,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Home from './Pages/Home/Home';
 import AdminLogin from './Pages/Admin/AdminLogin';
-import { UserStorage } from './userContext/userContext';
+import { UserStorage } from './Context/userContext';
 import { Toaster } from 'sonner';
 import Admin from './Pages/Admin/Admin';
+import { ProductStorage } from './Context/productContext';
 function App() {
   return (
     <div className="App">
@@ -13,7 +14,11 @@ function App() {
         <UserStorage>
           <Routes>
             <Route element={<Home />} path="/" />
-            <Route element={<Admin />} path="admin/*" />
+            <Route element={
+              <ProductStorage>
+              <Admin />
+              </ProductStorage>
+              } path="admin/*" />
             <Route element={<AdminLogin />} path="login" />
           </Routes>
         </UserStorage>
