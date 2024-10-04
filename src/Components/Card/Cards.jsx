@@ -4,15 +4,15 @@ import {
   CardContent,
   CardMedia,
   Typography,
-} from '@mui/material';
-import { useInView } from 'react-intersection-observer';
-import { styled } from '@mui/system';
-import { Link } from 'react-router-dom';
+} from "@mui/material";
+import { useInView } from "react-intersection-observer";
+import { styled } from "@mui/system";
+import { Link } from "react-router-dom";
 
 const FadeInCard = styled(Card)(({ theme }) => ({
   opacity: 0,
-  transform: 'translateY(20px)',
-  transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
+  transform: "translateY(20px)",
+  transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
 }));
 
 const Cards = ({ cardsData }) => {
@@ -33,18 +33,18 @@ const Cards = ({ cardsData }) => {
             sx={{
               maxWidth: 345,
               minHeight: 250,
-              width: '100%',
+              width: "100%",
               opacity: inView ? 1 : 0,
-              transform: inView ? 'translateY(0)' : 'translateY(20px)',
+              transform: inView ? "translateY(0)" : "translateY(20px)",
               marginBottom: 2,
-              boxShadow: 'none',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
+              boxShadow: "none",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
             }}
           >
             <CardMedia
-              sx={{ height: 140, border: ' none', backgroundSize: 'contain ' }}
+              sx={{ height: 140, border: " none", backgroundSize: "contain " }}
               image={card.imagem_url}
               title={card.nome}
             />
@@ -55,7 +55,7 @@ const Cards = ({ cardsData }) => {
               <Typography
                 variant="body2"
                 color="text.secondary"
-                style={{ minHeight: 100, maxHeight: 100 }}
+                style={{ minHeight: 70, maxHeight: 200, textAlign: "justify" }}
               >
                 {card.descricao}
               </Typography>
@@ -71,10 +71,10 @@ const Cards = ({ cardsData }) => {
             <Button size="small" variant="contained">
               <Link
                 style={{
-                  textDecoration: 'none',
-                  color: 'white',
-                  padding: '0px',
-                  margin: '0px',
+                  textDecoration: "none",
+                  color: "white",
+                  padding: "0px",
+                  margin: "0px",
                 }}
                 to={`https://wa.me/558230282936?text=Olá, vim pelo site e gostaria de comprar o seguinte item: ${card.nome}`}
               >

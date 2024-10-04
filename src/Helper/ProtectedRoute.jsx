@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../Context/userContext';
-import { Navigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../Context/userContext";
+import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
   const [loading, setLoading] = useState();
@@ -11,15 +11,13 @@ const ProtectedRoute = ({ children }) => {
       handleAutoLogin();
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      <Navigate to="/" />;
     } finally {
       setLoading(false);
       <Navigate to="/login" />;
     }
   }, []);
-
-  if (loading) return null;
-  if (!autenticado) return <Navigate to="/" />;
+  if (loading) return <>Loading ...</>;
   if (autenticado) return children;
 };
 
