@@ -7,7 +7,7 @@ const whatsappNumber = "558230282936"; // country code +55
 
 const BrandHeader = () => {
   return (
-    <header className="w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="w-full border-b bg-black/90 backdrop-blur supports-[backdrop-filter]:bg-black/70 text-white">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <a href="#" className="flex items-center gap-3" aria-label="Ouro Preto Construção - Início">
           <img
@@ -24,13 +24,13 @@ const BrandHeader = () => {
           </div>
         </a>
 
-        <nav className="hidden md:flex items-center gap-3">
-          <a href="#sobre" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Sobre</a>
-          <a href="#contato" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Contato</a>
-          <a href="#horarios" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Horários</a>
+        <nav className="hidden md:flex items-center gap-3 text-white">
+          <a href="#sobre" className="text-sm hover:text-foreground transition-colors">Sobre</a>
+          <a href="#contato" className="text-sm hover:text-foreground transition-colors">Contato</a>
+          <a href="#horarios" className="text-sm hover:text-foreground transition-colors">Horários</a>
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 text-black">
           <Button asChild variant="outline" size="sm" aria-label={`Ligar para ${phoneDisplay}`}>
             <a href={`tel:${phoneTel}`}>
               <Phone className="mr-2" /> Ligar

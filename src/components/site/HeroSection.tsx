@@ -34,7 +34,7 @@ const HeroSection = () => {
           <h1 className="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
             Ouro Preto Construção – Materiais de Construção
           </h1>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="mt-4 text-lg text-white/90 backdrop-blur supports-[backdrop-filter]:text-white/100 border border-white/10 rounded-md p-4 bg-black/30">
             A loja da sua construção! Qualidade, preço justo e atendimento especializado.
           </p>
 

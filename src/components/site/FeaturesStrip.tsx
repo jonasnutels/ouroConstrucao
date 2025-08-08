@@ -20,8 +20,8 @@ const items = [
 
 const FeaturesStrip = () => {
   return (
-    <section className="py-10" aria-label="Destaques da loja">
-      <div className="container mx-auto px-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <section className="py-10 bg-black/90 backdrop-blur supports-[backdrop-filter]:bg-black/70" aria-label="Destaques da loja">
+      <div className="container  mx-auto px-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {items.map(({ icon: Icon, title, desc }) => (
           <article key={title} className="rounded-lg border bg-card p-5 shadow-sm transition-colors">
             <div className="flex items-start gap-4">

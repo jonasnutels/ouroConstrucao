@@ -1,6 +1,6 @@
 const SiteFooter = () => {
   return (
-    <footer className="border-t bg-background/70">
+    <footer className="border-t bg-black/90 backdrop-blur supports-[backdrop-filter]:bg-black/70">
       <div className="container mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-sm text-muted-foreground">
           © {new Date().getFullYear()} Ouro Preto Construção. Todos os direitos reservados.

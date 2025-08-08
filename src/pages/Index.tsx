@@ -19,8 +19,8 @@ const Index = () => {
     telephone: "+55 82 3028-2936",
     areaServed: "Região",
     openingHoursSpecification: [
-      {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"07:30","closes":"18:00"},
-      {"@type":"OpeningHoursSpecification","dayOfWeek":["Sunday"],"opens":"08:00","closes":"12:00"}
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "07:30", "closes": "18:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday"], "opens": "08:00", "closes": "12:00" }
     ]
   };
 
@@ -38,7 +38,7 @@ const Index = () => {
       </Helmet>
 
       <BrandHeader />
-      <main>
+      <main className="flex flex-col">
         <HeroSection />
         <FeaturesStrip />
         <AboutSection />

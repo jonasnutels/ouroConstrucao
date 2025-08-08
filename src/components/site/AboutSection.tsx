@@ -22,7 +22,7 @@ const valores = [
 
 const AboutSection = () => {
   return (
-    <section id="sobre" className="py-16">
+    <section id="sobre" className="py-16 bg-black/90 backdrop-blur supports-[backdrop-filter]:bg-black/70">
       <div className="container mx-auto px-4 space-y-10">
         <article className="rounded-lg border bg-card p-6 shadow-sm">
           <div className="flex items-start gap-3">
