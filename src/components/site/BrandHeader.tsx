@@ -20,7 +20,7 @@ const BrandHeader = () => {
           />
           <div className="leading-tight">
             <span className="block text-lg font-semibold">Ouro Preto Construção</span>
-            <span className="block text-xs text-muted-foreground">A loja da sua construção!</span>
+            <span className="block text-xs text-white">A loja da sua construção!</span>
           </div>
         </a>
 

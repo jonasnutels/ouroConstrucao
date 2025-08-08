@@ -8,10 +8,10 @@ const whatsappNumber = "558230282936";
 const ContactSection = () => {
   return (
     <section id="contato" className="py-16 border-t bg-black/90 backdrop-blur supports-[backdrop-filter]:bg-black/70">
-      <div className="container mx-auto px-4 grid gap-10 md:grid-cols-2">
+      <div className="container mx-auto px-4 grid gap-10 md:grid-cols-2" >
         <div>
-          <h2 className="text-2xl font-bold">Fale com a gente</h2>
-          <p className="mt-2 text-muted-foreground">
+          <h2 className="text-2xl font-bold text-white">Fale com a gente</h2>
+          <p className="mt-2 text-white">
             Orçamentos, dúvidas e pedidos. Estamos prontos para atender você.
           </p>
 
