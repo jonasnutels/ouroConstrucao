@@ -29,7 +29,7 @@ const HeroSection = () => {
       </div>
 
       <div className="relative container mx-auto px-4 py-20 md:py-28">
-        <div className="max-w-2xl">
+        <div className="mx-auto text-center backdrop-blur supports-[backdrop-filter]:text-white/100 border border-white/10 rounded-md p-4 bg-black/30">
           <span className="inline-flex items-center rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground ring-1 ring-inset ring-border">Entrega grátis na região</span>
           <h1 className="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
             Ouro Preto Construção – Materiais de Construção
@@ -38,7 +38,7 @@ const HeroSection = () => {
             A loja da sua construção! Qualidade, preço justo e atendimento especializado.
           </p>
 
-          <div className="mt-8 flex flex-col sm:flex-row gap-3">
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 text-black">
             <Button asChild size="lg" variant="cta" aria-label="Fazer orçamento no WhatsApp">
               <a href={`https://wa.me/${whatsappNumber}`} target="_blank" rel="noreferrer">
                 <MessageCircle className="mr-2" /> Fazer orçamento
